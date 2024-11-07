@@ -24,13 +24,16 @@ jobs:
     #- name: Restore dependencies
      # run: dotnet restore  # Restore the project dependencies
 
-    - name: Print Details
+    - name: Print Dot net Version Details
       run: dotnet --version
 
-    - name: Build the application
-      run: dotnet build ./.github/HelloWorldApp/HelloWorldApp.csproj /v:diag # Build the application in Release configuration
+    - name: Print Path Details
+      run: echo %PATH%
 
-    - name: Run the application
-      run: dotnet run --project ./.github/HelloWorldApp/HelloWorldApp.csproj  # Run the application
+    #- name: Build the application
+     # run: dotnet build ./.github/HelloWorldApp/HelloWorldApp.csproj /v:diag # Build the application in Release configuration
+
+    #- name: Run the application
+    #  run: dotnet run --project ./.github/HelloWorldApp/HelloWorldApp.csproj  # Run the application
       
 
