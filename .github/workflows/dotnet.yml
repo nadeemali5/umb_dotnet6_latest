@@ -20,7 +20,7 @@ jobs:
       run: ls
        
     - name: Check .NET Version
-      run: ls "C:\Program Files\dotnet"
+      run: "C:\Program Files\dotnet\dotnet.exe"
 
     - name: Check .NET Version
       run: |
