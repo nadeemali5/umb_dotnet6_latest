@@ -32,7 +32,7 @@ jobs:
 
     - name: Check .NET Version 2 ls
       run: |
-         ls "C:\Users\runneradmin\.dotnet\"
+         ls "C:\Users\runneradmin\.dotnet\tools\"
        
     - name: Set up .NET 6 SDK
       uses: actions/setup-dotnet@v3  # This action sets up .NET 6 SDK on the runner ok
