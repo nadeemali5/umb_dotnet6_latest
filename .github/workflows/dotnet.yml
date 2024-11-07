@@ -19,12 +19,12 @@ jobs:
     - name: Check .NET Version
       run: "Get-ChildItem env:Path | Format-List *"
        
-    - name: Check .NET Version
-      run: 'C:\Program Files\dotnet\dotnet.exe --version'
+   # - name: Check .NET Version
+   #   run: 'C:\Program Files\dotnet\dotnet.exe --version'
 
-    - name: Check .NET Version
-      run: |
-         "C:\Program Files\dotnet\dotnet --version"
+   # - name: Check .NET Version
+   #   run: |
+    #     "C:\Program Files\dotnet\dotnet --version"
 
     - name: Check .NET Version 1 ls
       run: |
