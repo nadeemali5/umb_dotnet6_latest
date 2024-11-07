@@ -54,9 +54,9 @@ jobs:
 
     - name: Print few values
       run: |
-        & dotnet --list-sdks |
-          dotnet --list-runtimes |
-          Get-ChildItem -Path C:\ -Filter "global.json" |
+          dotnet --list-sdks
+          dotnet --list-runtimes
+          Get-ChildItem -Path C:\ -Filter "global.json"
           Get-ChildItem -Path D:\ -Filter "global.json"
 
     #- name: Build the application
