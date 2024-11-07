@@ -17,7 +17,7 @@ jobs:
       uses: actions/checkout@v3  # This step checks out the code in the repository
 
     - name: Check .NET Version
-      run: ls
+      run: "Get-ChildItem env:"
        
     - name: Check .NET Version
       run: 'C:\Program Files\dotnet\dotnet.exe --version'
