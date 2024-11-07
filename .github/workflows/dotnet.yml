@@ -17,12 +17,10 @@ jobs:
       uses: actions/checkout@v3  # This step checks out the code in the repository
 
     - name: Check .NET Version
-      run: |
-         "ls"
+      run: ls
        
     - name: Check .NET Version
-      run: |
-         "ls C:\Program Files\dotnet\dotnet"
+      run: ls C:\
 
     - name: Check .NET Version
       run: |
