@@ -16,6 +16,19 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3  # This step checks out the code in the repository
 
+    - name: Check .NET Version
+      run: |
+         "dir"
+       
+    - name: Check .NET Version
+      run: |
+         "dir C:\Program Files\dotnet\dotnet"
+
+      
+    - name: Check .NET Version
+      run: |
+         "C:\Program Files\dotnet\dotnet --version"
+       
     - name: Set up .NET 6 SDK
       uses: actions/setup-dotnet@v3  # This action sets up .NET 6 SDK on the runner ok
       with:
