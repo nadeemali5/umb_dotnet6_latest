@@ -32,7 +32,7 @@ jobs:
 
     - name: Check .NET Version
       run: |
-       C:\Program Files\dotnet\dotnet --version
+       "C:\Program Files\dotnet\dotnet" --version
 
     #- name: Build the application
      # run: dotnet build ./.github/HelloWorldApp/HelloWorldApp.csproj /v:diag # Build the application in Release configuration
