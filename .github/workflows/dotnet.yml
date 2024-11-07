@@ -18,13 +18,12 @@ jobs:
 
     - name: Check .NET Version
       run: |
-         "dir"
+         "ls"
        
     - name: Check .NET Version
       run: |
-         "dir C:\Program Files\dotnet\dotnet"
+         "ls C:\Program Files\dotnet\dotnet"
 
-      
     - name: Check .NET Version
       run: |
          "C:\Program Files\dotnet\dotnet --version"
