@@ -24,8 +24,8 @@ jobs:
     #- name: Restore dependencies
      # run: dotnet restore  # Restore the project dependencies
 
-    - name: Print Dot net Version Details
-      run: C:\Program Files\dotnet --version
+   # - name: Print Dot net Version Details
+   #   run: C:\Program Files\dotnet --version
 
    # - name: Print Path Details
    #   run: "${PATH}"
