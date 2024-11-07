@@ -52,6 +52,13 @@ jobs:
       run: |
         & "C:\Program Files\dotnet\dotnet" --version
 
+    - name: Print few values
+      run: |
+        & dotnet --list-sdks |
+          dotnet --list-runtimes |
+          Get-ChildItem -Path C:\ -Filter "global.json" |
+          Get-ChildItem -Path D:\ -Filter "global.json"
+
     #- name: Build the application
      # run: dotnet build ./.github/HelloWorldApp/HelloWorldApp.csproj /v:diag # Build the application in Release configuration
 
