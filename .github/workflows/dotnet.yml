@@ -58,13 +58,13 @@ jobs:
           dotnet --list-runtimes
           dotnet new globaljson --sdk-version 6.0.427 --roll-forward disable
           dotnet --version
-          Get-ChildItem -Path C:\ -Filter "global.json" -Recurse
-          Get-ChildItem -Path D:\ -Filter "global.json" -Recurse
+         # Get-ChildItem -Path C:\ -Filter "global.json" -Recurse
+         # Get-ChildItem -Path D:\ -Filter "global.json" -Recurse
 
-    #- name: Build the application
-     # run: dotnet build ./.github/HelloWorldApp/HelloWorldApp.csproj /v:diag # Build the application in Release configuration
+    - name: Build the application
+      run: dotnet build ./.github/HelloWorldApp/HelloWorldApp.csproj /v:diag # Build the application in Release configuration
 
-    #- name: Run the application
-    #  run: dotnet run --project ./.github/HelloWorldApp/HelloWorldApp.csproj  # Run the application
+    - name: Run the application
+      run: dotnet run --project ./.github/HelloWorldApp/HelloWorldApp.csproj  # Run the application
       
 
