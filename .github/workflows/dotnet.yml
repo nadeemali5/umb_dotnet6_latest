@@ -1,91 +1,69 @@
-name: .NET CI/CD
+name: Build and Run .NET 6 Hello World
 
 on:
   push:
     branches:
-      - main
+      - main  # Triggers the workflow on push to the main branch
   pull_request:
     branches:
-      - main
+      - main  # Also triggers on PRs to the main branch
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: windows-latest  # You can change this to windows-latest or macos-latest if needed
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+    - name: Checkout repository
+      uses: actions/checkout@v3  # This step checks out the code in the repository
 
-      # Create a global.json file to specify .NET 6.0 SDK version explicitly
-      - name: Create global.json to use .NET 6.0 SDK
-        run: |
-          echo '{ "sdk": { "version": "6.0.428", "rollForward": "disable" } }' > global.json
+    - name: Check .NET Version
+      run: "Get-ChildItem env:Path | Format-List *"
+       
+   # - name: Check .NET Version
+   #   run: 'C:\Program Files\dotnet\dotnet.exe --version'
 
-      # Set up .NET SDK to ensure .NET 6.0 is being used
-      - name: Set up .NET SDK 6.0
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: '6.0'
+   # - name: Check .NET Version
+   #   run: |
+    #     "C:\Program Files\dotnet\dotnet --version"
 
-      # List .NET SDKs installed to confirm .NET 6.0 is present
-      - name: Check .NET SDK versions
-        run: |
-          ls "C:\Program Files\dotnet\"
+    - name: Check .NET Version 1 ls
+      run: |
+         ls "C:\Program Files\dotnet\"
 
-      # Ensure that the correct version of .NET is being used
-      - name: Verify .NET version
-        run: |
+    - name: Check .NET Version 2 ls
+      run: |
+         ls "C:\Users\runneradmin\.dotnet\tools\"
+       
+    - name: Set up .NET 6 SDK
+      uses: actions/setup-dotnet@v3  # This action sets up .NET 6 SDK on the runner ok
+      with:
+        dotnet-version: '6.0'  # Specify the .NET version to use
+
+    #- name: Restore dependencies
+     # run: dotnet restore  # Restore the project dependencies
+
+   # - name: Print Dot net Version Details
+   #   run: C:\Program Files\dotnet --version
+
+   # - name: Print Path Details
+   #   run: "${PATH}"
+
+    - name: Check .NET Version new added
+      run: |
+        & "C:\Program Files\dotnet\dotnet" --version
+
+    - name: Print few values
+      run: |
+          dotnet --list-sdks
+          dotnet --list-runtimes
+          dotnet new globaljson --sdk-version 6.0.427 --roll-forward disable
           dotnet --version
+         # Get-ChildItem -Path C:\ -Filter "global.json" -Recurse
+         # Get-ChildItem -Path D:\ -Filter "global.json" -Recurse
 
-      - name: List directory contents
-        run: dir  # Verify directory structure
+    - name: Build the application
+      run: dotnet build ./.github/HelloWorldApp/HelloWorldApp.csproj /v:diag # Build the application in Release configuration
 
-      - name: Read configuration from JSON file (PowerShell)
-        id: read_config
-        shell: pwsh
-        run: |
-          # Read the JSON config file
-          $config = Get-Content -Raw -Path "dotnet-config.json" | ConvertFrom-Json
-
-          # Set values as environment variables
-          echo "CUSTOM=$($config.custom)" >> $env:GITHUB_ENV
-          echo "ARGUMENTS=$($config.arguments)" >> $env:GITHUB_ENV
-          echo "TEST_RUN_TITLE=$($config.testRunTitle)" >> $env:GITHUB_ENV
-          echo "MODIFY_OUTPUT_PATH=$($config.modifyOutputPath)" >> $env:GITHUB_ENV
-          echo "SELECT_OR_CONFIG=$($config.selectOrConfig)" >> $env:GITHUB_ENV
-          echo "FEED_RESTORE=$($config.feedRestore)" >> $env:GITHUB_ENV
-          echo "INCLUDE_NUGET_ORG=$($config.includeNuGetOrg)" >> $env:GITHUB_ENV
-
-      - name: Save .NET CLI arguments to a file
-        run: |
-          # Ensure all necessary values are provided, and no empty values are included
-          $args = @(
-            "--configuration Release"
-            "-p:Custom=${{ env.CUSTOM }}"
-            "-p:Arguments=${{ env.ARGUMENTS }}"
-            "-p:ModifyOutputPath=${{ env.MODIFY_OUTPUT_PATH }}"
-            "-p:SelectOrConfig=${{ env.SELECT_OR_CONFIG }}"
-            "-p:FeedRestore=${{ env.FEED_RESTORE }}"
-            "-p:IncludeNuGetOrg=${{ env.INCLUDE_NUGET_ORG }}"
-          )
-
-          # Remove empty values from args
-          $args = $args | Where-Object { $_ -ne "" }
-
-          # Save the arguments to args.txt
-          $args | Out-File -FilePath args.txt
-
-      - name: Read arguments from args.txt and pass them to dotnet build
-        shell: pwsh
-        run: |
-          # Read arguments from args.txt into an array
-          $args = Get-Content -Path args.txt | ForEach-Object { $_.Trim() }
-
-          # Ensure there are no empty arguments
-          $args = $args | Where-Object { $_ -ne "" }
-
-          # Use the arguments for dotnet build command
-          dotnet build MyDotnetApp.sln @args  # Pass arguments as splatted array
-
-      - name: Run the application
-        run: dotnet run --project MyDotnetApp\MyDotnetApp.csproj
+    - name: Run the application
+      run: dotnet run --project ./.github/HelloWorldApp/HelloWorldApp.csproj  # Run the application
+      
